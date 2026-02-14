@@ -1,3 +1,4 @@
+import Navbar from 'components/Navbar';
 import  type {Route} from './+types/home'
 
 export function meta({}: Route.MetaArgs) {
@@ -8,5 +9,11 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <h1 className={"text-3xl text-indigo-200 font-extrabold"}>HOME</h1>;
+  return (
+    <div className='home'>
+      <Navbar />
+  <h1 className={"text-3xl text-indigo-200 font-extrabold"}>HOME</h1>
+  </div>
+  )
+  
 }
