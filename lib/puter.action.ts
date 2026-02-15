@@ -137,3 +137,42 @@ export const getProjectById = async ({ id }: { id: string }) => {
         return null;
     }
 };
+
+export const deleteProject = async (id: string) => {
+    if (!PUTER_WORKER_URL) return false;
+
+    try {
+        const response = await puter.workers.exec(
+            `${PUTER_WORKER_URL}/api/projects/delete?id=${encodeURIComponent(id)}`,
+            { method: "DELETE" }
+        );
+
+        return response.ok;
+    } catch (error) {
+        console.error("Failed to delete project:", error);
+        return false;
+    }
+};
+
+export const updateProject = async (id: string, updates: Partial<DesignItem>) => {
+    if (!PUTER_WORKER_URL) return null;
+
+    try {
+        const response = await puter.workers.exec(
+            `${PUTER_WORKER_URL}/api/projects/update`,
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id, updates })
+            }
+        );
+
+        if (!response.ok) return null;
+
+        const data = await response.json();
+        return data.project as DesignItem || null;
+    } catch (error) {
+        console.error("Failed to update project:", error);
+        return null;
+    }
+};

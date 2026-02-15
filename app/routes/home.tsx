@@ -1,16 +1,16 @@
 import Navbar from 'components/Navbar';
 import  type {Route} from './+types/home'
-import { ArrowRight, ArrowUpRight, Clock, Layers } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Clock, Layers, X } from 'lucide-react';
 import Button from 'components/ui/Button';
 import Upload from 'components/Upload';
 import { useNavigate } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
-import { createProject, getProjects } from 'lib/puter.action';
+import { createProject, deleteProject, getProjects } from 'lib/puter.action';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Roomi | AI-Powered 3D Room Visualizer" },
+    { name: "description", content: "Transform your 2D floor plans into photorealistic 3D architectural renders in seconds using AI." },
   ];
 }
 
@@ -68,6 +68,18 @@ export default function Home() {
 
   } 
 
+  const handleDeleteProject = async (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    if (!confirm('Are you sure you want to delete this project?')) return;
+
+    const success = await deleteProject(id);
+    if (success) {
+      setProjects((prev) => prev.filter((p) => p.id !== id));
+    } else {
+      alert('Failed to delete project');
+    }
+  };
+
   return (
     <div className='home'>
       <Navbar />
@@ -115,13 +127,21 @@ export default function Home() {
             </div>
           </div>
           <div className='projects-grid'>
-            {projects.map(({id, name, renderedImage, sourceImage, timestamp}) => (
+            {projects.map(({id, name, renderedImage, sourceImage, timestamp, isPublic}) => (
               <div key={id} className='project-card group' onClick={() => navigate(`/visualizer/${id}`, { state: { name, initialImage: sourceImage, initialRender: renderedImage } })}>
                 <div className='preview'>
                   <img src={renderedImage || sourceImage} alt={name || 'project'} />
-                  <div className='badge'>
-                    <span>Community</span>
-                  </div>
+                  {isPublic && (
+                    <div className='badge'>
+                      <span>Community</span>
+                    </div>
+                  )}
+                  <button 
+                    className="absolute top-2 right-2 p-2 bg-white/10 backdrop-blur-md rounded-full opacity-0 group-hover:opacity-100 hover:bg-red-500 hover:text-white transition-all z-20"
+                    onClick={(e) => handleDeleteProject(e, id)}
+                  >
+                    <X size={14} />
+                  </button>
                 </div>
                 <div className='card-body'>
                   <div>
