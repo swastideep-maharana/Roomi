@@ -57,6 +57,7 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #9ca3af;
     }
+
 }
 
 @layer components {

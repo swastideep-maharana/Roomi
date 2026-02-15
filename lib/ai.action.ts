@@ -41,7 +41,7 @@ export const generate3Dview = async ({ sourceImage }: Generate3DViewParams) => {
             throw new Error('Invalid source image payload');
         }
 
-        console.log('Generating 3D view with model: gemini-2.0-flash');
+        console.log('Generating 3D view with model: gemini-2.5-flash-image-preview');
         const response = await puter.ai.txt2img(ROOMIFY_RENDER_PROMPT, {
             provider: 'gemini',
             model: 'gemini-2.5-flash-image-preview',
