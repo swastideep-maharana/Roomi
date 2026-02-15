@@ -1,5 +1,5 @@
 import puter from "@heyputer/puter.js";
-import { createHostingSlug, fetchBlobFromUrl, getHostedUrl, HOSTING_CONFIG_KEY, imageUrlToPngBlob, isHostedUrl } from "./utils";
+import { createHostingSlug, fetchBlobFromUrl, getHostedUrl, HOSTING_CONFIG_KEY, imageUrlToPngBlob, isHostedUrl, getImageExtension } from "./utils";
 
 type HostingConfig = {
     subdomain: string;
@@ -9,36 +9,36 @@ type HostedAsset = {
 }
 
 export const getOrCreateHostingConfig = async (): Promise<HostingConfig | null> => {
-    const existing  = (await puter.kv.get(HOSTING_CONFIG_KEY)) as HostingConfig | null;
-    if(existing?.subdomain) return {subdomain: existing.subdomain}
+    const existing = (await puter.kv.get(HOSTING_CONFIG_KEY)) as HostingConfig | null;
+    if (existing?.subdomain) return { subdomain: existing.subdomain }
 
     const subdomain = createHostingSlug();
 
     try {
         const created = await puter.hosting.create(
-            subdomain,'.')
+            subdomain, '.')
 
-        return {subdomain: created.subdomain};
+        return { subdomain: created.subdomain };
     } catch (error) {
         console.warn(`could not find subdomain: ${error}`)
         return null;
     }
 }
 
-export const uploadImageToHosting = async ({hosting, url , projectId, label}:StoreHostedImageParams): Promise<HostedAsset | null> => {
-    if(!hosting || !url) return null;
-    if(isHostedUrl(url)) return {url};
+export const uploadImageToHosting = async ({ hosting, url, projectId, label }: StoreHostedImageParams): Promise<HostedAsset | null> => {
+    if (!hosting || !url) return null;
+    if (isHostedUrl(url)) return { url };
 
     try {
         const resolved = label === "rendered"
-        ? await imageUrlToPngBlob(url)
-           .then((blob)=> blob ? {blob,contentType: 'image/png'}: null)
-        : await fetchBlobFromUrl(url);
+            ? await imageUrlToPngBlob(url)
+                .then((blob) => blob ? { blob, contentType: 'image/png' } : null)
+            : await fetchBlobFromUrl(url);
 
-        if(!resolved) return null;
+        if (!resolved) return null;
 
         const contentType = resolved.contentType || resolved.blob.type || "";
-        const ext = getImageExtention(contentType, url);
+        const ext = getImageExtension(contentType, url);
         const dir = `projects/${projectId}`;
         const filePath = `${dir}/${label}.${ext}`;
 
@@ -46,17 +46,13 @@ export const uploadImageToHosting = async ({hosting, url , projectId, label}:Sto
             type: contentType,
         });
 
-        await puter.fs.mkdir(dir, {createMissingParents: true});
+        await puter.fs.mkdir(dir, { createMissingParents: true });
         await puter.fs.write(filePath, uploadFile);
 
-        const hostedUrl = getHostedUrl({subdomain: hosting.subdomain}, filePath);
-        return hostedUrl ? {url: hostedUrl} : null;
+        const hostedUrl = getHostedUrl({ subdomain: hosting.subdomain }, filePath);
+        return hostedUrl ? { url: hostedUrl } : null;
     } catch (error) {
         console.error(`could not upload image to hosting: ${error}`);
         return null;
     }
-}
-
-function getImageExtention(contentType: string, url: never) {
-    throw new Error("Function not implemented.");
 }
