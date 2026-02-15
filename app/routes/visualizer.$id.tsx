@@ -1,4 +1,4 @@
-import type { Route } from "./+types/Visualizer.$id";
+import type { Route } from "./+types/visualizer.$id";
 import { createProject, getProjectById, updateProject } from "lib/puter.action";
 import { useParams, useLocation, useNavigate } from "react-router";
 import Button from "components/ui/Button";
