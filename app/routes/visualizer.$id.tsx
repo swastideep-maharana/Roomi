@@ -3,7 +3,7 @@ import { createProject, getProjectById, updateProject } from "lib/puter.action";
 import { useParams, useLocation, useNavigate } from "react-router";
 import Button from "components/ui/Button";
 import { generate3Dview } from "lib/ai.action";
-import { Box, Download, RefreshCcw, Share2, X } from "lucide-react";
+import { Download, RefreshCcw, Share2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ComparisonSlider from "components/ComparisonSlider";
 import "../comparison-slider.css";
@@ -162,7 +162,7 @@ const VisualizerPage = () => {
     <div className="visualizer">
       <nav className="topbar">
         <div className="brand">
-          <Box className='logo' />
+          <img src="/logo.svg" alt="Roomi" className='logo-img w-6 h-6 mr-2' />
           <span className="name">Roomi</span>
         </div>
         <Button variant='ghost' size='sm' onClick={handleBack} className='exit'>

@@ -1,4 +1,3 @@
-import { Box } from 'lucide-react'
 import React from 'react'
 import Button from './ui/Button'
 import { useOutletContext } from 'react-router';
@@ -27,7 +26,7 @@ const Navbar = () => {
             <nav className='inner'>
                 <div className='left'>
                     <div className='brand'>
-                        <Box className='logo' />
+                        <img src="/logo.svg" alt="Roomi" className='logo-img w-6 h-6 mr-2' />
                         <span className='name'>Roomi</span>
                     </div>
 

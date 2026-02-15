@@ -1,0 +1,14 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(75, 45)">
+    <!-- Red (Top) -->
+    <path d="M0 0C-5 -25 -35 -45 -55 -35C-75 -25 -50 5 -50 5L0 0Z" fill="#EF4444" transform="rotate(-15)"/>
+    <!-- Orange -->
+    <path d="M0 0C-5 -25 -35 -45 -55 -35C-75 -25 -50 5 -50 5L0 0Z" fill="#F97316" transform="rotate(10)"/>
+    <!-- Yellow -->
+    <path d="M0 0C-5 -25 -35 -45 -55 -35C-75 -25 -50 5 -50 5L0 0Z" fill="#FACC15" transform="rotate(35)"/>
+    <!-- Green -->
+    <path d="M0 0C-5 -25 -35 -45 -55 -35C-75 -25 -50 5 -50 5L0 0Z" fill="#4ADE80" transform="rotate(60)"/>
+    <!-- Blue (Bottom) -->
+    <path d="M0 0C-5 -25 -35 -45 -55 -35C-75 -25 -50 5 -50 5L0 0Z" fill="#3B82F6" transform="rotate(85)"/>
+  </g>
+</svg>
