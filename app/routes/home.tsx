@@ -10,7 +10,13 @@ import { createProject, deleteProject, getProjects } from 'lib/puter.action';
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Roomi | AI-Powered 3D Room Visualizer" },
-    { name: "description", content: "Transform your 2D floor plans into photorealistic 3D architectural renders in seconds using AI." },
+    { name: "description", content: "Transform your 2D floor plans into photorealistic 3D architectural renders in seconds using AI. The ultimate tool for architects and interior designers." },
+    { property: "og:title", content: "Roomi | AI-Powered 3D Room Visualizer" },
+    { property: "og:description", content: "Instant 3D architectural visualization from 2D blueprints. Built for modern design workflows." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: "Roomi | AI 3D Visualizer" },
+    { name: "twitter:description", content: "2D Floor Plan to 3D Render in seconds." },
   ];
 }
 

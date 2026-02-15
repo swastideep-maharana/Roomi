@@ -1,3 +1,4 @@
+import type { Route } from "./+types/Visualizer.$id";
 import { createProject, getProjectById, updateProject } from "lib/puter.action";
 import { useParams, useLocation, useNavigate } from "react-router";
 import Button from "components/ui/Button";
@@ -6,6 +7,15 @@ import { Box, Download, RefreshCcw, Share2, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ComparisonSlider from "components/ComparisonSlider";
 import "../comparison-slider.css";
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Roomi | AI Visualizer" },
+    { name: "description", content: "View and compare your AI-generated 3D architectural renders." },
+    { property: "og:title", content: "Roomi | AI Visualizer" },
+    { property: "og:type", content: "article" },
+  ];
+}
 
 const VisualizerPage = () => {
   const { id } = useParams();
