@@ -2,7 +2,6 @@
 
 **Roomi** is a production-ready architectural visualization platform that transforms 2D floor plans into photorealistic 3D renders in seconds. Built on the **Puter.js** ecosystem, it leverages state-of-the-art AI and a serverless architecture to provide a seamless design-to-visualization workflow.
 
-![Roomi Banner](https://via.placeholder.com/1200x400.png?text=Roomi+AI+Visualizer)
 
 ## ✨ Features
 
